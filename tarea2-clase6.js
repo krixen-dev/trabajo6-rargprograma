@@ -21,10 +21,10 @@ $calcularSalarios.onclick = function (e) {
   for (const salario of datos) {
     salarios.push(salario.value);
   }
-  console.log(encontrarNumeroMasGrande(salarios));
-  console.log(encontrarNumeroMasChico(salarios));
-  console.log(calcularPromedio(salarios));
-  console.log(calcularSalarioMensualPromedio(salarios));
+  document.querySelector(".salario-mayor").value = encontrarNumeroMasGrande(salarios);
+  document.querySelector(".salario-menor").value = encontrarNumeroMasChico(salarios);
+  document.querySelector(".salario-promedio").value = calcularPromedio(salarios);
+  document.querySelector(".salario-promedio-mensual").value = calcularSalarioMensualPromedio(salarios);
   e.preventDefault()
 }
 
