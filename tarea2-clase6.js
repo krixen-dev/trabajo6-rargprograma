@@ -8,46 +8,49 @@ Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como
 
 const $formularioSalarios = document.querySelector("#formulario-salarios");
 const $agregarIntegrante = document.querySelector("#agregar-integrante");
-const $calcular = document.querySelector("#calcular-salarios");
+const $calcularSalarios = document.querySelector("#calcular-salarios");
 
 $agregarIntegrante.onclick = function (e) {
-  agregarIntegranteAlFormulario($formularioSalarios);
+  agregarCampoInteraccionAFormulario($formularioSalarios, 'salario');
   e.preventDefault()
 }
 
-$calcular.onclick = function (e) {
+$calcularSalarios.onclick = function (e) {
   const datos = $formularioSalarios.querySelectorAll(".salario");
-  let lista = [];
+  let salarios = [];
   for (const salario of datos) {
-    lista.push(salario.value);
+    salarios.push(salario.value);
   }
-  console.log(encontrarNumeroMasGrande(lista));
-  console.log(encontrarNumeroMasChico(lista));
-  console.log(calcularPromedio(lista));
-  console.log(calcularSalarioMensualPromedio(lista));
+  console.log(encontrarNumeroMasGrande(salarios));
+  console.log(encontrarNumeroMasChico(salarios));
+  console.log(calcularPromedio(salarios));
+  console.log(calcularSalarioMensualPromedio(salarios));
   e.preventDefault()
 }
 
-
-function agregarIntegranteAlFormulario($formulario) {
+function agregarCampoInteraccionAFormulario($formulario, nombreCampo) {
   const $div = document.createElement("div");
   const $input = document.createElement("input");
   const $label = document.createElement("label");
-  $input.className = "salario";
-  $label.textContent = "salario";
+  $input.placeholder = nombreCampo;
+  $input.className = nombreCampo;
+  $label.textContent = nombreCampo;
+
   const $botonEliminar = document.createElement("button");
   $botonEliminar.textContent = "eliminar"
+
   $div.appendChild($label);
   $div.appendChild($input);
   $div.appendChild($botonEliminar);
   $formulario.appendChild($div);
-  $botonEliminar.onclick = function () {
-    eliminarIntegranteDeFormulario($div)
-  }
-}
 
-function eliminarIntegranteDeFormulario($div) {
-  $div.remove();
+  $botonEliminar.onclick = function () {
+    eliminarElementoDeUnFormulario($div)
+  }
+
+  function eliminarElementoDeUnFormulario($elemento) {
+    $elemento.remove();
+  }
 }
 
 function encontrarNumeroMasGrande(numeros) {
@@ -81,15 +84,15 @@ function calcularPromedio(numeros) {
   return sumaNumeros / cantidadNumeros;
 }
 
-function calcularSalarioMensual(salarioAnual) {
-  const MESES_EN_UN_ANIO = 12;
-  return salarioAnual / MESES_EN_UN_ANIO;
-}
-
 function calcularSalarioMensualPromedio(salarios) {
   let salariosMensuales = []
-  for (let i = 0; i < salarios.length; i++) {
-    salariosMensuales.push(calcularSalarioMensual(salarios[i]))
+  for (const salario of salarios) {
+    salariosMensuales.push(calcularSalarioMensual(salario))
   }
-  return calcularPromedio(salariosMensuales);
+  return calcularPromedio(salariosMensuales)
+
+  function calcularSalarioMensual(salarioAnual) {
+    const MESES_EN_UN_ANIO = 12;
+    return salarioAnual / MESES_EN_UN_ANIO;
+  }
 }
