@@ -18,8 +18,11 @@ $agregarIntegrante.onclick = function (e) {
 $calcularSalarios.onclick = function (e) {
   const datos = $formularioSalarios.querySelectorAll(".salario");
   let salarios = [];
+  const DATO_VACIO = "";
   for (const salario of datos) {
-    salarios.push(salario.value);
+    if (salario.value != DATO_VACIO.trim()) {
+      salarios.push(salario.value.trim());
+    }
   }
   document.querySelector(".salario-mayor").value = encontrarNumeroMasGrande(salarios);
   document.querySelector(".salario-menor").value = encontrarNumeroMasChico(salarios);
