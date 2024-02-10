@@ -7,14 +7,13 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 */
 
 const cantidadIntegrantes = Number(prompt('Cuántos integrantes hay en tu grupo familiar?'));
-const $formulario = document.querySelector('form');
-const calcular = document.querySelector("#calcular");
+const $formularioEdades = document.querySelector('form');
+const $calcularEdades = document.querySelector("#calcular");
 
+agregarInputsAFormulario(cantidadIntegrantes, $formularioEdades, 'integrante ');
 
-agregarCamposFormulario(cantidadIntegrantes, $formulario);
-
-calcular.onclick = function () {
-  const datos = $formulario.querySelectorAll("input");
+$calcularEdades.onclick = function () {
+  const datos = $formularioEdades.querySelectorAll("input");
   let edades = []
   for (const edad of datos) {
     edades.push(Number(edad.value));
@@ -26,13 +25,17 @@ calcular.onclick = function () {
   return false;
 }
 
-function agregarCamposFormulario(cantidad, $formulario) {
+function agregarInputsAFormulario(cantidad, $formulario, nombreInputs = 'input') {
   for (let i = 1; i < cantidad + 1; i++) {
-    const label = document.createElement("label");
-    label.textContent = `integrante: ${i}`;
-    $formulario.appendChild(label)
-    const input = document.createElement("input");
-    $formulario.appendChild(input);
+    const $div = document.createElement("div");
+    const $label = document.createElement("label");
+    const $input = document.createElement("input");
+    $label.textContent = `${nombreInputs.trim()} ${i}`;
+    $input.className = `${nombreInputs.trim()}-${i}`
+
+    $div.appendChild($label);
+    $div.appendChild($input);
+    $formulario.appendChild($div)
   }
   return $formulario
 }
@@ -41,7 +44,7 @@ function calcularPromedio(numeros) {
   let sumaNumeros = 0;
   const cantidadNumeros = numeros.length;
   for (let i = 0; i < cantidadNumeros; i++) {
-    sumaNumeros += Number(numeros[i]);
+    sumaNumeros += numeros[i];
   }
   return sumaNumeros / cantidadNumeros;
 }
