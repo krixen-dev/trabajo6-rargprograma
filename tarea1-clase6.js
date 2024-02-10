@@ -6,11 +6,15 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente la mayor edad
 Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuevamente, borrando los inputs ya creados (investigar cómo en MDN).
 */
 
-const cantidadIntegrantes = Number(prompt('Cuántos integrantes hay en tu grupo familiar?'));
+let cantidadIntegrantes = Number(prompt('Cuántos integrantes hay en tu grupo familiar?'));
 const $formularioEdades = document.querySelector('form');
 const $calcularEdades = document.querySelector("#calcular");
 
-agregarInputsAFormulario(cantidadIntegrantes, $formularioEdades, 'integrante ');
+while (!Number(cantidadIntegrantes)) {
+  cantidadIntegrantes = Number(prompt('CARACTERES NO ADMITIDOS. Indique cuantos (números) integrantes hay en su grupo familiar'));
+}
+
+agregarInputsAFormulario(cantidadIntegrantes, $formularioEdades, 'integrante ')
 
 $calcularEdades.onclick = function () {
   const datos = $formularioEdades.querySelectorAll("input");
