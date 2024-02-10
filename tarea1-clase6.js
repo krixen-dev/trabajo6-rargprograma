@@ -7,8 +7,8 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 */
 
 let cantidadIntegrantes = Number(prompt('Cuántos integrantes hay en tu grupo familiar?'));
-const $formularioEdades = document.querySelector('form');
-const $calcularEdades = document.querySelector("#calcular");
+const $formularioEdades = document.querySelector('#formulario-edades');
+const $calcularEdades = document.querySelector("#calcular-edades");
 
 while (!Number(cantidadIntegrantes)) {
   cantidadIntegrantes = Number(prompt('CARACTERES NO ADMITIDOS. Indique cuantos (números) integrantes hay en su grupo familiar'));
@@ -23,9 +23,10 @@ $calcularEdades.onclick = function () {
     edades.push(Number(edad.value));
   }
 
-  console.log(calcularPromedio(edades));
-  console.log(encontrarNumeroMasGrande(edades));
-  console.log(encontrarNumeroMasChico(edades));
+  document.querySelector(".mayor-edad").value = encontrarNumeroMasGrande(edades);
+  document.querySelector(".menor-edad").value = encontrarNumeroMasChico(edades);
+  document.querySelector(".promedio-edad").value = calcularPromedio(edades);
+  mostrarElemento(document.querySelector("#resultados-edades"))
   return false;
 }
 
@@ -73,4 +74,8 @@ function encontrarNumeroMasChico(numeros) {
     }
   }
   return numeroMasChicoEncontrado;
+}
+
+function mostrarElemento($elemento) {
+  $elemento.style.display = 'block';
 }
