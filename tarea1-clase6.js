@@ -17,12 +17,12 @@ while (!Number(cantidadIntegrantes)) {
 agregarInputsAFormulario(cantidadIntegrantes, $formularioEdades, 'integrante ')
 
 $calcularEdades.onclick = function () {
-  const datos = $formularioEdades.querySelectorAll("input");
+  const datos = $formularioEdades.querySelectorAll(".integrante");
   let edades = []
   for (const edad of datos) {
     edades.push(Number(edad.value));
   }
-
+  console.log(edades);
   document.querySelector(".mayor-edad").value = encontrarNumeroMasGrande(edades);
   document.querySelector(".menor-edad").value = encontrarNumeroMasChico(edades);
   document.querySelector(".promedio-edad").value = calcularPromedio(edades);
@@ -36,7 +36,7 @@ function agregarInputsAFormulario(cantidad, $formulario, nombreInputs = 'input')
     const $label = document.createElement("label");
     const $input = document.createElement("input");
     $label.textContent = `${nombreInputs.trim()} ${i}`;
-    $input.className = `${nombreInputs.trim()}-${i}`
+    $input.className = `${nombreInputs.trim()} ${nombreInputs.trim()}-${i}`
 
     $div.appendChild($label);
     $div.appendChild($input);
