@@ -23,7 +23,6 @@ $calcularEdades.onclick = function () {
   for (const edad of datos) {
     edades.push(Number(edad.value));
   }
-  console.log(edades);
   document.querySelector(".mayor-edad").value = encontrarNumeroMasGrande(edades);
   document.querySelector(".menor-edad").value = encontrarNumeroMasChico(edades);
   document.querySelector(".promedio-edad").value = calcularPromedio(edades);
@@ -69,34 +68,18 @@ function calcularPromedio(numeros) {
 }
 
 function encontrarNumeroMasGrande(numeros) {
-  let numeroMasGrandeEncontrado = numeros[0];
-  for (let i = 0; i < numeros.length; i++) {
-    let numeroMayorActual = numeros[i];
-    if (numeroMayorActual > numeroMasGrandeEncontrado) {
-      numeroMasGrandeEncontrado = numeroMayorActual;
-    }
-  }
+  const numerosOrdenadosMayorAMenor = numeros.sort((a, b) => b - a);
+  const numeroMasGrandeEncontrado = numerosOrdenadosMayorAMenor[0];
   return numeroMasGrandeEncontrado;
 }
 
 function encontrarNumeroMasChico(numeros) {
-  let numeroMasChicoEncontrado = numeros[0];
-  for (let i = 0; i < numeros.length; i++) {
-    let numeroMenorActual = numeros[i];
-    if (numeroMenorActual < numeroMasChicoEncontrado) {
-      numeroMasChicoEncontrado = numeroMenorActual;
-    }
-  }
+  const numerosOrdenadosMenorAMayor = numeros.sort((a, b) => a- b);
+  const numeroMasChicoEncontrado = numerosOrdenadosMenorAMayor[0];
   return numeroMasChicoEncontrado;
 }
 
-function mostrarElemento($elemento) {
-  $elemento.style.display = 'block';
-}
-function ocultarElemento($elemento) {
-  $elemento.style.display = 'none';
-}
+const mostrarElemento = $elemento => $elemento.style.display = 'block';
+const ocultarElemento = $elemento => $elemento.style.display = 'none';
+const eliminarElementoDeUnFormulario = $elemento => $elemento.remove();
 
-function eliminarElementoDeUnFormulario($elemento) {
-  $elemento.remove();
-}

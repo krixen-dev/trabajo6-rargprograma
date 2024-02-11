@@ -40,7 +40,7 @@ function agregarCampoInteraccionAFormulario($formulario, nombreCampo) {
   $label.textContent = nombreCampo;
 
   const $botonEliminar = document.createElement("button");
-  $botonEliminar.textContent = "eliminar"
+  $botonEliminar.textContent = "eliminar";
 
   $div.appendChild($label);
   $div.appendChild($input);
@@ -48,33 +48,21 @@ function agregarCampoInteraccionAFormulario($formulario, nombreCampo) {
   $formulario.appendChild($div);
 
   $botonEliminar.onclick = function () {
-    eliminarElementoDeUnFormulario($div)
-  }
+    eliminarElementoDeUnFormulario($div);
+  };
 
-  function eliminarElementoDeUnFormulario($elemento) {
-    $elemento.remove();
-  }
+  const eliminarElementoDeUnFormulario = $elemento => $elemento.remove();
 }
 
 function encontrarNumeroMasGrande(numeros) {
-  let numeroMasGrandeEncontrado = numeros[0];
-  for (let i = 0; i < numeros.length; i++) {
-    let numeroMayorActual = numeros[i];
-    if (numeroMayorActual > numeroMasGrandeEncontrado) {
-      numeroMasGrandeEncontrado = numeroMayorActual;
-    }
-  }
+  const numerosOrdenadosMayorAMenor = numeros.sort((a, b) => b - a);
+  const numeroMasGrandeEncontrado = numerosOrdenadosMayorAMenor[0];
   return numeroMasGrandeEncontrado;
 }
 
 function encontrarNumeroMasChico(numeros) {
-  let numeroMasChicoEncontrado = numeros[0];
-  for (let i = 0; i < numeros.length; i++) {
-    let numeroMenorActual = numeros[i];
-    if (numeroMenorActual < numeroMasChicoEncontrado) {
-      numeroMasChicoEncontrado = numeroMenorActual;
-    }
-  }
+  const numerosOrdenadosMenorAMayor = numeros.sort((a, b) => a- b);
+  const numeroMasChicoEncontrado = numerosOrdenadosMenorAMayor[0];
   return numeroMasChicoEncontrado;
 }
 
@@ -82,7 +70,7 @@ function calcularPromedio(numeros) {
   let sumaNumeros = 0;
   const cantidadNumeros = numeros.length;
   for (let i = 0; i < cantidadNumeros; i++) {
-    sumaNumeros += Number(numeros[i]);
+    sumaNumeros += numeros[i];
   }
   return sumaNumeros / cantidadNumeros;
 }
