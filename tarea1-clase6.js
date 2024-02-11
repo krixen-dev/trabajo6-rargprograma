@@ -9,6 +9,7 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 let cantidadIntegrantes = Number(prompt('Cuántos integrantes hay en tu grupo familiar?'));
 const $formularioEdades = document.querySelector('#formulario-edades');
 const $calcularEdades = document.querySelector("#calcular-edades");
+const $reiniciarEdades = document.querySelector("#reiniciar-edades");
 
 while (!Number(cantidadIntegrantes)) {
   cantidadIntegrantes = Number(prompt('CARACTERES NO ADMITIDOS. Indique cuantos (números) integrantes hay en su grupo familiar'));
@@ -17,7 +18,7 @@ while (!Number(cantidadIntegrantes)) {
 agregarInputsAFormulario(cantidadIntegrantes, $formularioEdades, 'integrante ')
 
 $calcularEdades.onclick = function () {
-  const datos = $formularioEdades.querySelectorAll(".integrante");
+  const datos = $formularioEdades.querySelectorAll(".integrante input");
   let edades = []
   for (const edad of datos) {
     edades.push(Number(edad.value));
@@ -30,13 +31,26 @@ $calcularEdades.onclick = function () {
   return false;
 }
 
+$reiniciarEdades.onclick = function () {
+  const integrantes = $formularioEdades.querySelectorAll(".integrante")
+  for (const integrante of integrantes) {
+    eliminarElementoDeUnFormulario(integrante);
+  }
+  ocultarElemento(document.querySelector("#resultados-edades"));
+  while (!Number(cantidadIntegrantes)) {
+    cantidadIntegrantes = Number(prompt('CARACTERES NO ADMITIDOS. Indique cuantos (números) integrantes hay en su grupo familiar'));
+  }
+  agregarInputsAFormulario(cantidadIntegrantes, $formularioEdades, 'integrante ')
+}
+
 function agregarInputsAFormulario(cantidad, $formulario, nombreInputs = 'input') {
   for (let i = 1; i < cantidad + 1; i++) {
     const $div = document.createElement("div");
     const $label = document.createElement("label");
     const $input = document.createElement("input");
     $label.textContent = `${nombreInputs.trim()} ${i}`;
-    $input.className = `${nombreInputs.trim()} ${nombreInputs.trim()}-${i}`
+    $input.className = `${nombreInputs.trim()}-${i}`
+    $div.className = `${nombreInputs.trim()}`
 
     $div.appendChild($label);
     $div.appendChild($input);
@@ -78,4 +92,11 @@ function encontrarNumeroMasChico(numeros) {
 
 function mostrarElemento($elemento) {
   $elemento.style.display = 'block';
+}
+function ocultarElemento($elemento) {
+  $elemento.style.display = 'none';
+}
+
+function eliminarElementoDeUnFormulario($elemento) {
+  $elemento.remove();
 }
